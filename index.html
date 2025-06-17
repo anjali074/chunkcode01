@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscribe First - Code Review Tool</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      font-family: monospace;
+      text-align: center;
+      padding: 40px;
+    }
+    .btn {
+      background-color: #00ffcc;
+      color: black;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .btn:hover {
+      background-color: #00ccaa;
+    }
+    textarea {
+      width: 100%;
+      height: 60vh;
+      background: #1a1a1a;
+      color: #00ff00;
+      border: 2px solid #00ffcc;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    #codeTool { display: none; }
+    #loading { display: none; color: #00ffcc; margin-top: 20px; }
+    .yt-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lockScreen">
+    <h1>🔒 Subscribe to Unlock Code Tool</h1>
+    <button class="btn" onclick="openAndUnlock()">✅ I Have Subscribed</button>
+    <div id="loading">⏳ Checking your subscription...</div>
+  </div>
+
+  <div id="codeTool">
+    <h1>📋 Paste Your Code Below</h1>
+    <a class="yt-link" href="https://www.youtube.com/@Code-Review-c91?sub_confirmation=1" target="_blank">📺 Subscribe Channel</a>
+    <textarea id="codeBox" placeholder="Apna code yahan paste kare..."></textarea><br>
+    <button class="btn" onclick="copyCode()">📎 Copy Code</button>
+    <button class="btn" onclick="downloadCode()">💾 Download Code</button>
+  </div>
+
+  <script>
+    function openAndUnlock() {
+      window.open("https://www.youtube.com/@Code-Review-c91?sub_confirmation=1", "_blank");
+      document.getElementById("loading").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("codeTool").style.display = "block";
+      }, 4000); // Wait 4 sec before showing tool
+    }
+
+    function copyCode() {
+      const codeBox = document.getElementById("codeBox");
+      navigator.clipboard.writeText(codeBox.value)
+        .then(() => alert("📋 Code copied!"))
+        .catch(err => alert("❌ Failed to copy."));
+    }
+
+    function downloadCode() {
+      const text = document.getElementById("codeBox").value;
+      const blob = new Blob([text], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "mycode.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+
+</body>
+</html>
